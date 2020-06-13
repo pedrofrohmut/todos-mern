@@ -1,23 +1,23 @@
 {
-  "name": "react-todo-mern",
+  "name": "todos-mern",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
   "dependencies": {
-    "concurrently": "^5.2.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "mongoose": "^5.9.17",
+    "mongoose": "^5.9.17"
+  },
+  "devDependencies": {
+    "concurrently": "^5.2.0",
     "nodemon": "^2.0.4",
     "prettier": "^2.0.5"
   },
-  "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
     "nodemon": "nodemon server.js"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "author": "Pedro Frohmut",
+  "license": "MIT"
 }
