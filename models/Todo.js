@@ -12,11 +12,9 @@ const TodoSchema = new mongoose.Schema({
     required: false,
     default: "No description"
   },
-  category: {
-    type: String,
-    trim: true,
-    required: false,
-    default: "No category"
+  task: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Task"
   },
   createdAt: {
     type: Date,

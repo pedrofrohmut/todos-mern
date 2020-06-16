@@ -82,9 +82,9 @@ exports.deleteTodo = async (req, res, next) => {
 exports.updateTodo = async (req, res, next) => {
   try {
     const todo = await Todo.findById(req.params.id)
-    const { name, description, category } = req.body
-    const updatedTodo = { ...todo._doc, name, description, category }
-    await Todo.update(todo, { name, description, category })
+    const { name, description, task } = req.body
+    const updatedTodo = { ...todo._doc, name, description, task }
+    await Todo.update(todo, { name, description, task })
     res.status(200).json({
       success: true,
       data: { "before changes": todo, "Updated todo": updatedTodo },
