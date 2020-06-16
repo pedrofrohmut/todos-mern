@@ -14,6 +14,7 @@ app.use(express.json())
 // Express App - use Method: Mounts the specified middleware function at the specified path
 // @Middleware: Routes for Todos Controller
 app.use("/api/v1/todos", require("./routes/todos"))
+app.use("/api/v1/tasks", require("./routes/tasks"))
 
 const PORT = process.env.PORT || 5000
 
