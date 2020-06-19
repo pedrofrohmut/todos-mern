@@ -3,6 +3,7 @@ const router = express.Router()
 const {
   getTodos,
   getTodoById,
+  getTodosByTaskId,
   addTodo,
   deleteTodo,
   updateTodo
@@ -17,6 +18,11 @@ router.route("/").get(getTodos)
 // @Route: /todos/:id
 // @Access: Public
 router.route("/:id").get(getTodoById)
+
+// @Desc: Get a todo by task ID
+// @Route: /todos/:id
+// @Access: Public
+router.route("/task/:id").get(getTodosByTaskId)
 
 // @Desc: Add a todo
 // @Route: /todos

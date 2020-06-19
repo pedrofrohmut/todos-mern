@@ -39,6 +39,29 @@ exports.getTodoById = async (req, res, next) => {
   }
 }
 
+exports.getTodosByTaskId = async (req, res, next) => {
+  try {
+    const todos = await Todo.find({ task: req.params.id })
+    if (!todos || todos.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "No Todos matches the Task ID passed"
+      })
+    }
+    return res.status(200).json({
+      success: true,
+      data: todos,
+      count: todos.length
+    })
+  } catch (err) {
+    console.log(err)
+    return res.status(500).json({
+      success: false,
+      error: "Error to get the Todos by Task Id: " + err.message
+    })
+  }
+}
+
 exports.addTodo = async (req, res, next) => {
   try {
     const todo = await Todo.create(req.body)

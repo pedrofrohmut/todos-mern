@@ -1,4 +1,5 @@
 const express = require("express")
+const cors = require("cors")
 const dotenv = require("dotenv")
 const connectDB = require("./config/db")
 
@@ -7,6 +8,8 @@ dotenv.config({ path: "./config/config.env" })
 connectDB()
 
 const app = express()
+
+app.use(cors())
 
 // This is a built-in middleware function in Express. It parses incoming requests with JSON payloads and is based on body-parser.
 app.use(express.json())
