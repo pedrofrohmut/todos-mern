@@ -6,7 +6,9 @@ const {
   getTodosByTaskId,
   addTodo,
   deleteTodo,
-  updateTodo
+  updateTodo,
+  setAsCompleted,
+  setAsNotCompleted
 } = require("../controllers/todos")
 
 // @Desc: Get All Todos from persistence
@@ -29,14 +31,24 @@ router.route("/task/:id").get(getTodosByTaskId)
 // @Access: Public
 router.route("/").post(addTodo)
 
+// @Desc: Delete a todo by ID
+// @Route: /todos
+// @Access: Public
+router.route("/:id").delete(deleteTodo)
+
 // @Desc: Update a todo by ID
 // @Route: /todos
 // @Access: Public
 router.route("/:id").put(updateTodo)
 
-// @Desc: Delete a todo by ID
-// @Route: /todos
+// @Desc: Set todo as completed
+// @Route: /todos/{id}/completed
 // @Access: Public
-router.route("/:id").delete(deleteTodo)
+router.route("/:id/completed").patch(setAsCompleted)
+
+// @Desc: Set todo as NOT completed
+// @Route: /todos/{id}/notcompleted
+// @Access: Public
+router.route("/:id/notcompleted").patch(setAsNotCompleted)
 
 module.exports = router

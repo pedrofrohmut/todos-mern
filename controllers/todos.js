@@ -121,3 +121,51 @@ exports.updateTodo = async (req, res, next) => {
     })
   }
 }
+
+exports.setAsCompleted = async (req, res, next) => {
+  try {
+    const todo = await Todo.findById(req.params.id)
+    if (!todo) {
+      return res.status(404).json({
+        success: false,
+        message: "No Todo matches the ID passed"
+      })
+    }
+    await Todo.updateOne(todo, { isCompleted: true })
+    return res.status(200).json({
+      success: true,
+      data: { ...todo._doc, isCompleted: true },
+      message: "Todo set as completed"
+    })
+  } catch (err) {
+    console.log(err)
+    return res.status(500).json({
+      success: false,
+      message: "Error to set Todo as completed: " + err.message
+    })
+  }
+}
+
+exports.setAsNotCompleted = async (req, res, next) => {
+  try {
+    const todo = await Todo.findById(req.params.id)
+    if (!todo) {
+      return res.status(404).json({
+        success: false,
+        message: "No Todo matches the ID passed"
+      })
+    }
+    await Todo.update(todo, { isCompleted: false })
+    return res.status(200).json({
+      success: true,
+      data: { ...todo._doc, isCompleted: false },
+      message: "Todo set as NOT completed"
+    })
+  } catch (err) {
+    console.log(err)
+    return res.status(500).json({
+      success: false,
+      message: "Error to set Todo as NOT completed: " + err.message
+    })
+  }
+}

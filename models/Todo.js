@@ -16,6 +16,11 @@ const TodoSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Task"
   },
+  isCompleted: {
+    type: Boolean,
+    required: false,
+    default: false
+  },
   createdAt: {
     type: Date,
     default: Date.now
