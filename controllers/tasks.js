@@ -84,7 +84,7 @@ exports.updateTask = async (req, res, next) => {
     const task = await Task.findById(req.params.id)
     const { name } = req.body
     const updatedTask = { ...task._doc, name }
-    await Task.update(task, { name })
+    await Task.updateOne(task, { name })
     res.status(200).json({
       success: true,
       data: { "before changes": task, "Updated task": updatedTask },

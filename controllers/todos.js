@@ -107,7 +107,7 @@ exports.updateTodo = async (req, res, next) => {
     const todo = await Todo.findById(req.params.id)
     const { name, description, task } = req.body
     const updatedTodo = { ...todo._doc, name, description, task }
-    await Todo.update(todo, { name, description, task })
+    await Todo.updateOne(todo, { name, description, task })
     res.status(200).json({
       success: true,
       data: { "before changes": todo, "Updated todo": updatedTodo },
@@ -131,7 +131,7 @@ exports.setAsCompleted = async (req, res, next) => {
         message: "No Todo matches the ID passed"
       })
     }
-    await Todo.updateOne(todo, { isCompleted: true })
+    await Todo.updateOne({ _id: todo._id }, { isCompleted: true })
     return res.status(200).json({
       success: true,
       data: { ...todo._doc, isCompleted: true },
@@ -155,7 +155,7 @@ exports.setAsNotCompleted = async (req, res, next) => {
         message: "No Todo matches the ID passed"
       })
     }
-    await Todo.update(todo, { isCompleted: false })
+    await Todo.updateOne({ _id: todo._id }, { isCompleted: false })
     return res.status(200).json({
       success: true,
       data: { ...todo._doc, isCompleted: false },
