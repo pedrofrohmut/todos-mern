@@ -1,4 +1,5 @@
 const Todo = require("../models/Todo")
+const Task = require("../models/Task")
 
 exports.getTodos = async (req, res, next) => {
   try {
@@ -122,7 +123,7 @@ exports.updateTodo = async (req, res, next) => {
   }
 }
 
-exports.setAsCompleted = async (req, res, next) => {
+exports.setTodoAsCompleted = async (req, res, next) => {
   try {
     const todo = await Todo.findById(req.params.id)
     if (!todo) {
@@ -146,7 +147,7 @@ exports.setAsCompleted = async (req, res, next) => {
   }
 }
 
-exports.setAsNotCompleted = async (req, res, next) => {
+exports.setTodoAsNotCompleted = async (req, res, next) => {
   try {
     const todo = await Todo.findById(req.params.id)
     if (!todo) {
@@ -166,6 +167,38 @@ exports.setAsNotCompleted = async (req, res, next) => {
     return res.status(500).json({
       success: false,
       message: "Error to set Todo as NOT completed: " + err.message
+    })
+  }
+}
+
+exports.clearCompletedTodos = async (req, res, next) => {
+  const taskId = req.params.id
+  try {
+    const task = await Task.findById(taskId)
+    if (!task) {
+      return res.status(404).json({
+        success: false,
+        message: "Task not found with the passed Id"
+      })
+    }
+    const completedTodos = await Todo.find({ isCompleted: true, task: taskId })
+    if (!completedTodos) {
+      return res.status(400).json({
+        success: false,
+        message: "There are no TODOs completed for this passed Task"
+      })
+    }
+    await Todo.deleteMany({ task: taskId, isCompleted: true })
+    return res.status(200).json({
+      success: true,
+      data: completedTodos,
+      message: "Cleared completed todos of this Task"
+    })
+  } catch (err) {
+    console.log(err)
+    return res.status(500).json({
+      success: false,
+      message: "Error to clear completed todos: " + err.message
     })
   }
 }
